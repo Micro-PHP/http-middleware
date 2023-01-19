@@ -13,22 +13,23 @@ declare(strict_types=1);
 
 namespace Micro\Plugin\Http\Plugin;
 
-use Symfony\Component\HttpFoundation\Request;
-
-/**
- * @author Stanislau Komar <head.trackingsoft@gmail.com>
- */
-interface HttpMiddlewarePluginInterface
+trait MiddlewareAllowAllTrait
 {
     /**
      * @return string[]
      */
-    public function getRequestMatchMethods(): array;
+    public function getRequestMatchMethods(): array
+    {
+        return ['get', 'post', 'patch', 'put', 'delete'];
+    }
 
-    /**
-     * Match pattern.
-     */
-    public function getRequestMatchPath(): string;
+    public function getRequestMatchPath(): string
+    {
+        return '^/';
+    }
 
-    public function processMiddleware(Request $request): void;
+    public function getMiddlewarePriority(): int
+    {
+        return 0;
+    }
 }

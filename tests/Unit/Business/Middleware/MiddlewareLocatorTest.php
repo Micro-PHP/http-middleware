@@ -57,19 +57,26 @@ class MiddlewareLocatorTest extends TestCase
     {
         return [
             // Success
-            ['^/one/two', 3],
-            ['/three', 1],
-            ['^/one', null],
-            ['^/one/(\b[a-z]+)/three', 2],
-            ['^/One/(\b[a-z]+)/ThreE/(\d+)/success', 4],
+            ['^/one/two', 3, ['gEt', 'PoSt']],
+            ['/three', 1, ['get']],
+            ['^/one', null, ['get', 'put']],
+            ['^/one/(\b[a-z]+)/three', 2, ['get']],
+            ['^/One/(\b[a-z]+)/ThreE/(\d+)/success', 4, ['get']],
 
             // will no executed
-            ['^/one$', null],
-            ['/none', null],
-            ['/(\d+)/$', null],
-            ['^/one/(\b[a-z]+)/three/four', 2],
-            ['^/one/two/three/four', null],
-            ['/one/two/three/four/', null],
+
+            ['^/one/two', 3, ['PoSt']],
+            ['/three', 1, ['put']],
+            ['^/one', null, ['patch']],
+            ['^/one/(\b[a-z]+)/three', 2, ['put']],
+            ['^/One/(\b[a-z]+)/ThreE/(\d+)/success', 4, ['put']],
+
+            ['^/one$', null, ['get']],
+            ['/none', null, ['get']],
+            ['/(\d+)/$', null, ['get']],
+            ['^/one/(\b[a-z]+)/three/four', 2, ['get']],
+            ['^/one/two/three/four', null, ['get']],
+            ['/one/two/three/four/', null, ['get']],
         ];
     }
 
@@ -81,7 +88,7 @@ class MiddlewareLocatorTest extends TestCase
 
         foreach ($config as $mc) {
             $middlewares[] = $this->createMiddlewareObj(
-                $request,
+                $mc[2],
                 $mc[0],
                 $mc[1],
             );
@@ -90,7 +97,7 @@ class MiddlewareLocatorTest extends TestCase
         return new \ArrayObject($middlewares);
     }
 
-    protected function createMiddlewareObj(Request $request, string $path, int|null $priority)
+    protected function createMiddlewareObj(array $methods, string $path, int|null $priority)
     {
         if (!$priority) {
             $middleware = $this->createMock(HttpMiddlewarePluginInterface::class);
@@ -99,7 +106,12 @@ class MiddlewareLocatorTest extends TestCase
             $middleware->method('getMiddlewarePriority')->willReturn($priority);
         }
 
-        $middleware->expects($this->once())
+        $middleware
+            ->expects($this->once())
+            ->method('getRequestMatchMethods')
+            ->willReturn($methods);
+
+        $middleware
             ->method('getRequestMatchPath')
             ->willReturn($path);
 

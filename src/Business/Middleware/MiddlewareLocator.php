@@ -36,8 +36,15 @@ readonly class MiddlewareLocator implements MiddlewareLocatorInterface
 
         /** @var array<int, HttpMiddlewarePluginInterface[]> $pc */
         $pc = [];
+        $requestMethod = strtolower($request->getMethod());
 
+        /** @var HttpMiddlewarePluginInterface $middleware */
         foreach ($it as $middleware) {
+            $methods = array_map('strtolower', $middleware->getRequestMatchMethods());
+            if (!\in_array($requestMethod, $methods)) {
+                continue;
+            }
+
             $middlewareMatch = $middleware->getRequestMatchPath();
             $pattern = '/'.preg_replace('/\//', '\/', $middlewareMatch).'/i';
 
