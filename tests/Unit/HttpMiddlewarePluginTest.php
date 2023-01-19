@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-/**
- * This file is part of the Micro framework package.
+/*
+ *  This file is part of the Micro framework package.
  *
- * (c) Stanislau Komar <head.trackingsoft@gmail.com>
+ *  (c) Stanislau Komar <kost@micro-php.net>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
  */
 
 namespace Micro\Plugin\Http\Test\Unit;
@@ -16,7 +16,6 @@ namespace Micro\Plugin\Http\Test\Unit;
 use Micro\Component\DependencyInjection\Autowire\ContainerAutowire;
 use Micro\Component\DependencyInjection\Container;
 use Micro\Framework\Kernel\KernelInterface;
-use Micro\Plugin\Http\Configuration\HttpMiddlewarePluginConfigurationInterface;
 use Micro\Plugin\Http\Decorator\HttpMiddlewareDecorator;
 use Micro\Plugin\Http\Facade\HttpFacadeInterface;
 use Micro\Plugin\Http\HttpCorePlugin;
@@ -37,8 +36,8 @@ class HttpMiddlewarePluginTest extends TestCase
             ->willReturn(900);
 
         $container = new ContainerAutowire(new Container());
-        $container->register(KernelInterface::class, fn() => $this->createMock(KernelInterface::class));
-        $container->register(HttpFacadeInterface::class, fn() => $this->createMock(HttpFacadeInterface::class));
+        $container->register(KernelInterface::class, fn () => $this->createMock(KernelInterface::class));
+        $container->register(HttpFacadeInterface::class, fn () => $this->createMock(HttpFacadeInterface::class));
 
         $this->plugin->setConfiguration($cfg);
         $this->plugin->provideDependencies($container);
@@ -50,5 +49,3 @@ class HttpMiddlewarePluginTest extends TestCase
         ], $this->plugin->getDependedPlugins());
     }
 }
-
-

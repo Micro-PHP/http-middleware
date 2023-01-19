@@ -23,7 +23,7 @@ class HttpMiddlewarePluginConfiguration extends PluginConfiguration implements H
 {
     public const CFG_DECORATION_PRIORITY = 'HTTP_MIDDLEWARE_DECORATION_PRIORITY';
 
-    public const CFG_DECORATION_DEFAULT = 900;
+    public const CFG_DECORATION_DEFAULT = 150;
 
     public function getDecorationPriority(): int
     {

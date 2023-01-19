@@ -17,7 +17,6 @@ use Micro\Framework\Kernel\KernelInterface;
 use Micro\Plugin\Http\Plugin\HttpMiddlewareOrderedPluginInterface;
 use Micro\Plugin\Http\Plugin\HttpMiddlewarePluginInterface;
 use Symfony\Component\HttpFoundation\Request;
-use function PHPStan\dumpType;
 
 /**
  * @author Stanislau Komar <head.trackingsoft@gmail.com>

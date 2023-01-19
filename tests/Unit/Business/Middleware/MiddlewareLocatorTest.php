@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-/**
- * This file is part of the Micro framework package.
+/*
+ *  This file is part of the Micro framework package.
  *
- * (c) Stanislau Komar <head.trackingsoft@gmail.com>
+ *  (c) Stanislau Komar <kost@micro-php.net>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
  */
 
 namespace Micro\Plugin\Http\Test\Unit\Business\Middleware;
@@ -28,7 +28,7 @@ class MiddlewareLocatorTest extends TestCase
     /** @var MiddlewareLocator */
     private $locator;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->kernel = $this->createMock(KernelInterface::class);
         $this->locator = new MiddlewareLocator($this->kernel);
@@ -51,26 +51,25 @@ class MiddlewareLocatorTest extends TestCase
         }
 
         $this->assertEquals(5, $located);
-
     }
 
     public function middlewareCollectionConfig(): array
     {
         return [
             // Success
-            [ '^/one/two', 3 ],
-            [ '/three', 1 ],
-            [ '^/one', null ],
-            [ '^/one/(\b[a-z]+)/three', 2],
+            ['^/one/two', 3],
+            ['/three', 1],
+            ['^/one', null],
+            ['^/one/(\b[a-z]+)/three', 2],
             ['^/One/(\b[a-z]+)/ThreE/(\d+)/success', 4],
 
             // will no executed
-            [ '^/one$', null ],
+            ['^/one$', null],
             ['/none', null],
             ['/(\d+)/$', null],
-            [ '^/one/(\b[a-z]+)/three/four', 2 ],
-            [ '^/one/two/three/four', null ],
-            [ '/one/two/three/four/', null ],
+            ['^/one/(\b[a-z]+)/three/four', 2],
+            ['^/one/two/three/four', null],
+            ['/one/two/three/four/', null],
         ];
     }
 
@@ -81,7 +80,7 @@ class MiddlewareLocatorTest extends TestCase
         $middlewares = [];
 
         foreach ($config as $mc) {
-            $middlewares []= $this->createMiddlewareObj(
+            $middlewares[] = $this->createMiddlewareObj(
                 $request,
                 $mc[0],
                 $mc[1],
@@ -93,7 +92,7 @@ class MiddlewareLocatorTest extends TestCase
 
     protected function createMiddlewareObj(Request $request, string $path, int|null $priority)
     {
-        if(!$priority) {
+        if (!$priority) {
             $middleware = $this->createMock(HttpMiddlewarePluginInterface::class);
         } else {
             $middleware = $this->createMock(HttpMiddlewareOrderedPluginInterface::class);
@@ -107,5 +106,3 @@ class MiddlewareLocatorTest extends TestCase
         return $middleware;
     }
 }
-
-

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-/**
- * This file is part of the Micro framework package.
+/*
+ *  This file is part of the Micro framework package.
  *
- * (c) Stanislau Komar <head.trackingsoft@gmail.com>
+ *  (c) Stanislau Komar <kost@micro-php.net>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
  */
 
 namespace Micro\Plugin\Http\Test\Unit\Business\Middleware;
@@ -20,7 +20,6 @@ use PHPUnit\Framework\TestCase;
 
 class MiddlewareLocatorFactoryTest extends TestCase
 {
-
     public function testCreate()
     {
         $kernel = $this->createMock(KernelInterface::class);
@@ -28,5 +27,3 @@ class MiddlewareLocatorFactoryTest extends TestCase
         $this->assertInstanceOf(MiddlewareLocatorInterface::class, $factory->create());
     }
 }
-
-

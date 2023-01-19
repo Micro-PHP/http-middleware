@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-/**
- * This file is part of the Micro framework package.
+/*
+ *  This file is part of the Micro framework package.
  *
- * (c) Stanislau Komar <head.trackingsoft@gmail.com>
+ *  (c) Stanislau Komar <kost@micro-php.net>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
  */
 
 namespace Micro\Plugin\Http\Test\Unit;
@@ -22,15 +22,13 @@ class HttpMiddlewarePluginConfigurationTest extends TestCase
     public function testGetDecorationPriority()
     {
         $appCfg = new DefaultApplicationConfiguration([
-            'HTTP_MIDDLEWARE_DECORATION_PRIORITY'   => 1,
+            'HTTP_MIDDLEWARE_DECORATION_PRIORITY' => 1,
         ]);
 
         $pluginCfg = new HttpMiddlewarePluginConfiguration($appCfg);
         $this->assertEquals(1, $pluginCfg->getDecorationPriority());
 
         $pluginCfg = new HttpMiddlewarePluginConfiguration(new DefaultApplicationConfiguration([]));
-        $this->assertEquals(900, $pluginCfg->getDecorationPriority());
+        $this->assertEquals(150, $pluginCfg->getDecorationPriority());
     }
 }
-
-
