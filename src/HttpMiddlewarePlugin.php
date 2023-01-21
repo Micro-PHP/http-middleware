@@ -43,7 +43,7 @@ class HttpMiddlewarePlugin implements PluginDependedInterface, DependencyProvide
     public function provideDependencies(Container $container): void
     {
         $container->decorate(HttpFacadeInterface::class,
-            function (HttpFacadeInterface $decorated, KernelInterface $kernel) { // @phpstan-ignore-line
+            function (HttpFacadeInterface $decorated, KernelInterface $kernel): HttpFacadeInterface {
                 $this->decorated = $decorated;
                 $this->kernel = $kernel;
 
