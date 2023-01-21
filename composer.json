@@ -10,8 +10,8 @@
         }
     ],
     "require": {
-        "micro/kernel-boot-plugin-depended": "^1",
-        "micro/plugin-http-core": "^1"
+        "micro/kernel-boot-plugin-depended": "^1.6",
+        "micro/plugin-http-core": "^1.6"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.29",
